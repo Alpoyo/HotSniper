@@ -397,7 +397,8 @@ int main(int argc, char **argv)
       return 1;
   }
 
-  printf("Parsing input files...\n");
+  /* HotSniper Modification: replace regular log for transient temperatures */
+  //printf("Parsing input files...\n");
   size = parse_cmdline(table, MAX_ENTRIES, argc, argv);
   global_config_from_strs(&global_config, table, size);
 
@@ -452,7 +453,7 @@ int main(int argc, char **argv)
           avg_sink_temp = thermal_config.ambient + SMALL_FOR_CONVEC;
           natural = package_model(&thermal_config, table, size, avg_sink_temp);
           if (thermal_config.r_convec<R_CONVEC_LOW || thermal_config.r_convec>R_CONVEC_HIGH)
-            printf("Warning: Heatsink convection resistance is not realistic, double-check your package settings...\n");
+            fprintf(stderr, "Warning: Heatsink convection resistance is not realistic, double-check your package settings...\n");
       }
   }
 
@@ -508,7 +509,8 @@ int main(int argc, char **argv)
   print_simulation_summary(thermal_config, model);
 #endif
 
-  printf("Creating thermal circuit...\n");
+  /* HotSniper modification: replace message log with transient temperatures */
+  //printf("Creating thermal circuit...\n");
   populate_R_model(model, flp);
 
   if (do_transient)
@@ -595,7 +597,9 @@ int main(int argc, char **argv)
               populate_R_model(model, flp);
           }
 
-          printf("Computing temperatures for t = %e...\n", lines*model->config->sampling_intvl);
+          /* HotSniper modification: replace normal log for transient
+           * temperatures */
+          //printf("Computing temperatures for t = %e...\n", lines*model->config->sampling_intvl);
 
           /* for the grid model, only the first call to compute_temp
            * passes a non-null 'temp' array. if 'temp' is  NULL,
@@ -684,6 +688,9 @@ int main(int argc, char **argv)
       steady_state_temp(model, overall_power, steady_temp);
     }
 
+  /* HotSniper modification: dump transient temperatures to stdout */
+  dump_temp(model, temp, "stdout");
+
   /* dump steady state temperatures on to file if needed	*/
   if (strcmp(model->config->steady_file, NULLFILE))
     dump_temp(model, steady_temp, model->config->steady_file);
@@ -730,6 +737,8 @@ int main(int argc, char **argv)
   free_names(names);
   free_dvector(vals);
 
-  printf("Simulation complete.\n");
+  /* HotSniper modification: replace messages with transient temperatures for
+   * stdout */
+  //printf("Simulation complete.\n");
   return 0;
 }

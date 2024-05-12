@@ -600,7 +600,7 @@ int coo2csc(int size, int nnz,
       }
       if((cooArray[i].x == prev_x) &&
          (cooArray[i].y == prev_y))
-        printf("Warning: Duplicate elements in Matrix!\n");
+        fprintf(stderr, "Warning: Duplicate elements in Matrix!\n");
 
       prev_x = cooArray[i].x;
       prev_y = cooArray[i].y;

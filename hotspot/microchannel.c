@@ -352,9 +352,10 @@ void microchannel_build_network(microchannel_config_t *config) {
 
   fclose(fp);
 
-  printf("Creating pressure circuit...\n");
+  /* HotSniper Modification: replace messages by transient type for stdout */
+  //printf("Creating pressure circuit...\n");
   build_pressure_matrix(config);
-  printf("Solving pressure circuit...\n");
+  //printf("Solving pressure circuit...\n");
   solve_pressure_circuit(config);
 }
 

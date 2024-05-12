@@ -277,8 +277,8 @@ void thermal_config_add_from_strs(thermal_config_t *config, materials_list_t *ma
 		fatal("secondary heat tranfer layer dimensions should be greater than zero\n");
 	/* leakage iteration is not supported in transient mode in this release */
 	if (config->leakage_used == 1) {
-		printf("Warning: transient leakage iteration is not supported in this release...\n");
-		printf(" ...all transient results are without thermal-leakage loop.\n");
+		fprintf(stderr, "Warning: transient leakage iteration is not supported in this release...\n");
+		fprintf(stderr, " ...all transient results are without thermal-leakage loop.\n");
 	}
 	if ((config->model_secondary == 1) && (!strcasecmp(config->model_type, BLOCK_MODEL_STR)))
 		fatal("secondary heat tranfer path is supported only in the grid mode\n");
