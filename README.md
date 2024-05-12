@@ -60,7 +60,7 @@ cd ..
 The [HotSpot] simulator is shipped with HotSniper. All you need to do is to compile it:
 ```sh
 cd hotspot
-make
+make SUPERLU=1
 cd ..
 ```
 

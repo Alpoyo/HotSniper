@@ -22,6 +22,10 @@ RUN apt-get update && apt-get install -y \
     libbz2-dev \
     g++-4.8 \
  && rm -rf /var/lib/apt/lists/*
+# For building HotSpot
+RUN apt-get update && apt-get install -y \
+    libsuperlu-dev \
+ && rm -rf /var/lib/apt/lists/*
 # For building RISC-V Tools
 RUN apt-get update && apt-get install -y \
     autoconf \
